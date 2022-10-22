@@ -1,0 +1,56 @@
+body{
+    font-family: "Open Sans", sans-serif;
+}
+
+h1{
+    font-size: 45px;
+    line-height: 61px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: "Open Sans", sans-serif;
+    color:#000;
+    font-weight: 300;
+}
+
+/* estilização do texto*/
+p,li, label{
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 25px;
+    color: #808080;
+}
+
+/* espacamento no topo inferior da section */
+section{
+    padding: 100px 0;
+}
+
+/* centralização do banner, com seletor de classe */
+.banner-full .image{
+    display: flex;
+    justify-content: center;
+}
+
+/* alteração da altura da imagem */
+.banner-full .image img {
+    height: 625px;
+}
+
+/* margem inferior entre o titulo principal e o texto */
+.banner-full .block h1{
+    margin-bottom: 40px;
+}
+
+/* aumentar o tamnho da fonte do texto e a margem inferior 
+entre o texto e a imagem abaixo */
+.banner-full .block p {
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+
+/* margem inferior a lista das fotos do apple e google */
+ul .app-store{
+    margin-bottom: 60px;
+}
+
