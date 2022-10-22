@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Cadastro de Cliente</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!-- Adicionando Javascript -->
+    <script>
+
+        function limpa_formulário_cep() {
+            //Limpa valores do formulário de cep.
+            document.getElementById('rua').value = ("");
+            document.getElementById('bairro').value = ("");
+            document.getElementById('cidade').value = ("");
+            document.getElementById('uf').value = ("");
+        }
+
+        function meu_callback(conteudo) {
+            if (!("erro" in conteudo)) {
+                //Atualiza os campos com os valores.
+                document.getElementById('rua').value = (conteudo.logradouro);
+                document.getElementById('bairro').value = (conteudo.bairro);
+                document.getElementById('cidade').value = (conteudo.localidade);
+                document.getElementById('uf').value = (conteudo.uf);
+            } //end if.
+            else {
+                //CEP não Encontrado.
+                limpa_formulário_cep();
+                alert("CEP não encontrado.");
+            }
+        }
+
+        function pesquisacep(valor) {
+
+            //Nova variável "cep" somente com dígitos.
+            var cep = valor.replace(/\D/g, '');
+
+            //Verifica se campo cep possui valor informado.
+            if (cep != "") {
+
+                //Expressão regular para validar o CEP.
+                var validacep = /^[0-9]{8}$/;
+
+                //Valida o formato do CEP.
+                if (validacep.test(cep)) {
+
+                    //Preenche os campos com "..." enquanto consulta webservice.
+                    document.getElementById('rua').value = "...";
+                    document.getElementById('bairro').value = "...";
+                    document.getElementById('cidade').value = "...";
+                    document.getElementById('uf').value = "...";
+
+                    //Cria um elemento javascript.
+                    var script = document.createElement('script');
+
+                    //Sincroniza com o callback.
+                    script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+
+                    //Insere script no documento e carrega o conteúdo.
+                    document.body.appendChild(script);
+
+                } //end if.
+                else {
+                    //cep é inválido.
+                    limpa_formulário_cep();
+                    alert("Formato de CEP inválido.");
+                }
+            } //end if.
+            else {
+                //cep sem valor, limpa formulário.
+                limpa_formulário_cep();
+            }
+        };
+
+    </script>
+
+    <style>
+
+        .footer {
+        background-color: #010101;
+        height: 80px;
+        width: 1800px;
+        position: relative;
+        z-index: 999;
+        margin-left: auto; /* linha modificada */
+        margin-right: auto; /* linha adicionada */
+}
+
+        
+    </style>
+</head>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Estado</title>
+    <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <section style="margin: 50px 0px 30px 0px;">
+        <div class="container">
+            <div class="row">
+                <h1>Cadastro Em HTML</h1>
+            </div>
+        </div>
+        
+            
+            
+    </section>
+
+    <section>
+        <form action="salve">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <label for="codigo"> Codigo: </label>
+                        <input class="form-control" name="codigo" type="text" id="codigo" disabled>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="nome"> Nome:</label>
+                        <input class="form-control" name="nome" type="text" id="nome" required>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="cpf"> CPF: </label>
+                        <input class="form-control" name="cpf" type="text" id="cpf" required>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="rg"> RG: </label>
+                        <input class="form-control" name="rg" type="text" id="rg" required>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label for="dtn"> Data de Nascimento: </label>
+                        <input class="form-control" name="dtn" type="date" id="dtn" required>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <section>
+        <form action="salve">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>Cep:</label>
+                        <input class="form-control" name="cep" type="text" id="cep" value="" size="10" maxlength="9"
+                            onblur="pesquisacep(this.value);" /><br />
+                    </div>
+                    <div class="col-md-4">
+                        <label>Rua:</label>
+                        <input class="form-control" name="rua" type="text" id="rua" size="60" /><br />
+                    </div>
+                    <div class="col-md-1">
+                        <label>Nº:</label>
+                        <input class="form-control" name="numero" type="text" id="numero" size="30" /><br />
+                    </div>
+                    <div class="col-md-2">
+                        <label>Bairro:</label>
+                        <input class="form-control" name="bairro" type="text" id="bairro" size="40" /><br />
+                    </div>
+                    <div class="col-md-2">
+                        <label>Cidade:</label>
+                        <input class="form-control" name="cidade" type="text" id="cidade" size="40" /><br />
+                    </div>
+                    <div class="col-md-1">
+                        <label>Estado:</label>
+                        <input class="form-control" name="uf" type="text" id="uf" size="2" /><br />
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <section>
+        <div class="container" style="margin-top: 15px;">
+            <div class="row">
+                <div class="col-md-10 text-right">
+                    <button type="button" class="btn btn-outline-success" onclick="salvar()">SALVAR</button>
+                </div>
+                <div class="col-md-2 text-right">
+                    <button type="button" class="btn btn-outline-danger" onclick="excluir()">EXCLUIR</button>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div style="width: 100%; border : #E0E0E0 solid 1px; overflow: auto; margin-top: 10px; border-radius: 5px; background-color:#FFFFFF #FFFFFF"
+                    id="grid">
+                </div>
+                <footer>
+                    Matheus Alves Mendes - Etec | 2022 - WEB 1   ->   INSTAGRAM : matheus.alvesms 
+                    
+                </footer>
+                <footer>
+                   
+                </footer>
+            </div>
+        </div>
+    </section>
+
+    
+    <script src="js\cliente.js"></script>
+
+</body>
